@@ -1,5 +1,9 @@
 @extends('layouts.layout')
-
+@section('header')
+    <header class="container-fluid">
+        <div class="my-4"><h1 class="text-center my-3">{{$titlePage ?? 'Conversor de Moedas'}}</h1></div>
+    </header>
+@endsection
 @section('content')
 <article class="row">
     <div class="col-sm-12 col-md-6 col-lg-4 mx-auto">

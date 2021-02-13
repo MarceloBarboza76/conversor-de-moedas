@@ -1,5 +1,24 @@
 @extends('layouts.layout')
-
+@section('header')
+    <header class="container-fluid">
+        <nav class="navbar navbar-expand navbar-light bg-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#logout" aria-controls="logout" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="logout">
+                    <span class="navbar-text">Bem vindo!</span>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                          <a class="btn btn-outline-primary" aria-current="page" href="{{$logout ?? '/'}}">Sair</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="my-4"><h1 class="text-center my-3">{{$titlePage ?? 'Conversor de Moedas'}}</h1></div>
+    </header>
+@endsection
 @section('content')
 <article class="row">
     <div class="col-sm-12 col-md-6 col-lg-4 mx-auto">
@@ -21,7 +40,7 @@
                 <div class="col-sm-12 col-lg-6 mx-auto">
                     <div class="input-group mb-3">
                         <span class="input-group-text">$</span>
-                        <input type="text" class="form-control" name="price" value="{{$price ?? '0,00'}}" aria-label="Dollar amount (with dot and two decimal places)">
+                        <input type="text" class="form-control" name="price" id="price" value="{{$price ?? '0,00'}}" aria-label="Dollar amount (with dot and two decimal places)">
                     </div>
                 </div>
                 <div class="border-bottom my-3"></div>

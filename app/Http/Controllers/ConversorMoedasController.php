@@ -9,7 +9,7 @@ namespace App\Http\Controllers;
  */
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cookie;
 use App\Models\Converted;
 
 class ConversorMoedasController extends Controller
@@ -17,8 +17,11 @@ class ConversorMoedasController extends Controller
 
     public function conversor(Request $request)
     {
+        if (!$this->isLogged($request)) {
+            return redirect('/entrar');
+        }
         $dbConverted = Converted::select('*')->orderByDesc('date_add')->paginate(5);
-        
+//        
         $post_moeda = $request->session()->pull('post_moeda');
         
         $data = [
@@ -30,11 +33,11 @@ class ConversorMoedasController extends Controller
             'price'=>$post_moeda['price'] ? number_format($post_moeda['price'], 2, ',', ' ') : '0,00',
             'converted'=> $post_moeda['converted'] ? number_format($post_moeda['converted'], 2, ',', ' ') : '0,00',
             'dateNow'=> date('d-m-Y'),
-            'convertedTable'=>$dbConverted
+            'convertedTable'=>$dbConverted,
+            'logout'=>'/sair'
         ];
         
-        
-        
+        Cookie::queue('marcelo', 'testando');
         return view('conversor-moedas', $data);
     }
     
@@ -87,6 +90,18 @@ class ConversorMoedasController extends Controller
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         $file = curl_exec($curl);
         return $file;
+    }
+    
+    public function isLogged($request)
+    {
+        $data = $request->session()->get('usuario');
+        $cookie = $request->cookie('conversorMoeda');
+        if (!$request->session()->exists('usuario.logado') || !$request->session()->exists('usuario.hashCookie') || !$data['logado'] || ($data['hashCookie'] !== $cookie)) {
+            $request->session()->flush();
+            return false;
+        }
+        $request->session()->put('usuario.logado', true);
+        return true;
     }
 
 }

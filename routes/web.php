@@ -20,5 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\ConversorMoedasController::class, 'conversor']);
 Route::post('/', [App\Http\Controllers\ConversorMoedasController::class, 'postProcess']);
 
+Route::get('/sair', [App\Http\Controllers\AuthConverterController::class, 'sair']);
 Route::get('/entrar', [App\Http\Controllers\AuthConverterController::class, 'cmAuth']);
-Route::post('entrar', [App\Http\Controllers\AuthConverterController::class, 'seuNome']);
+Route::post('entrar', [App\Http\Controllers\AuthConverterController::class, 'postProcess']);

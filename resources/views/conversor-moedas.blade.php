@@ -57,7 +57,7 @@
                     <small>{{$moeda_result}}</small>
                 </div>
                 <div>
-                    <h3>R$ {{$converted ?? '0,00'}}</h3>
+                    <h3>$ {{$converted ?? '0,00'}}</h3>
                 </div>
                 <div class="d-grid gap-2">
                     <input type="submit" class="btn btn-primary" name="submit" value="Enviar">
@@ -82,9 +82,9 @@
                 @forelse($convertedTable as $rowsTable)
                     <tr>
                         <td>{{$rowsTable->moeda_base}}</td>
-                        <td>R$ {{number_format($rowsTable->value_base, 2, ',', ' ')}}</td>
+                        <td>$ {{number_format($rowsTable->value_base, 2, ',', ' ')}}</td>
                         <td>{{$rowsTable->moeda_converted}}</td>
-                        <td>R$ {{number_format($rowsTable->value_converted, 2, ',', ' ')}}</td>
+                        <td>$ {{number_format($rowsTable->value_converted, 2, ',', ' ')}}</td>
                         <td>{{$rowsTable->date_add->format('d-m-Y H:i:s')}}</td>
                     </tr>
                 @empty
